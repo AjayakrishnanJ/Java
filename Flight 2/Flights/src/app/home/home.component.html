@@ -1,0 +1,105 @@
+<div id="booking" class="section">
+  <a routerLink="/home"><img src="../assets/images/logo.png" alt="" class="logo"></a>
+  <div class="section-center">
+    <div class="container">
+      <div class="row">
+        <div class="booking-form">
+          <form>
+            <div class="form-group">
+              <div class="form-checkbox">
+                  <label for="one-way">
+                      <input
+                        type="radio"
+                        id="one-way"
+                        name="flight-type"
+                        (click)="onFlightTypeChange('one-way')"
+                      />
+                      <span></span>One way
+                    </label>
+                <label for="roundtrip">
+                  <input
+                    type="radio"
+                    id="roundtrip"
+                    name="flight-type"
+                    (click)="onFlightTypeChange('roundtrip')"
+                  />
+                  <span></span>Roundtrip
+                </label>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-4">
+                <div class="form-group">
+                  <span class="form-label">Flying from</span>
+                  <input
+                  class="form-control"
+                  type="text"
+                  placeholder="City or airport"
+                  [(ngModel)]="flyingFromInput"
+                  (input)="autocompleteAirports(flyingFromInput, 'flyingFrom')"
+                  name="flyingFrom"
+                  />
+                  <ul class="autocomplete-suggestions" *ngIf="flyingFromSuggestions.length > 0">
+                    <li *ngFor="let suggestion of flyingFromSuggestions" (click)="selectAirport(suggestion, 'flyingFrom')">
+                      {{ suggestion.name }} ({{ suggestion.code }})
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-group">
+                  <span class="form-label">Flying to</span>
+                  <input
+                  class="form-control"
+                  type="text"
+                  placeholder="City or airport"
+                  [(ngModel)]="flyingToInput"
+                  (input)="autocompleteAirports(flyingToInput,'flyingTo')"
+                  name="flyingTo"
+                  />
+                  <ul class="autocomplete-suggestions" *ngIf="flyingToSuggestions.length > 0">
+                    <li *ngFor="let suggestion of flyingToSuggestions" (click)="selectAirport(suggestion, 'flyingTo')">
+                      {{ suggestion.name }} ({{ suggestion.code }})
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              <div class="col-md-2">
+                <div class="form-group">
+                  <span class="form-label">Departing</span>
+                  <input class="form-control" type="date" required [(ngModel)]="departingDate" name="departingDate"/>
+                </div>
+              </div>
+              <div class="col-md-2" *ngIf="selectedFlightType === 'roundtrip'">
+                <div class="form-group">
+                  <span class="form-label">Returning</span>
+                  <input class="form-control" type="date" required [(ngModel)]="returningDate" name="returningDate"/>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-3">
+                <div class="form-group">
+                  <span class="form-label">Travel class</span>
+                  <select class="form-control" [(ngModel)]="travelClass" name="travelClass">
+                    <option>Economy class</option>
+                    <option>Business class</option>
+                    <option>First class</option>
+                  </select>
+                  <span class="select-arrow"></span>
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div class="form-btn">
+                  <button class="submit-btn" (click)="showFlights()">
+                    Show Flights
+                  </button>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
